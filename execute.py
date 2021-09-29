@@ -31,9 +31,16 @@ class BasicExecute:
 
         if node[0] == 'str':
             return node[1]
-
+        if node[0] == 'big':
+            is1 = self.walkTree(node[1]) > self.walkTree(node[2])
+            return is1
+   
+        if node[0] == 'small':
+            is1 = self.walkTree(node[1]) < self.walkTree(node[2])
+            return is1
         if node[0] == 'add':
             return self.walkTree(node[1]) + self.walkTree(node[2])
+        
         elif node[0] == 'sub':
             return self.walkTree(node[1]) - self.walkTree(node[2])
         elif node[0] == 'mul':
@@ -41,14 +48,8 @@ class BasicExecute:
         elif node[0] == 'div':
             return self.walkTree(node[1]) / self.walkTree(node[2])
         elif node[0] == 'ifsame':
-            print(self.walkTree(node[1]))
-            print(self.walkTree(node[2]))
-            if self.walkTree(node[1]) == self.walkTree(node[2]):
-                return('true')
-                print('true')
-            else:
-                return('false')
-                print('false')
+            is1 = self.walkTree(node[1]) == self.walkTree(node[2])
+            return is1
 
         if node[0] == 'var_assign':
             self.env[node[1]] = self.walkTree(node[2])

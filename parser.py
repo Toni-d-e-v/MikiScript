@@ -7,7 +7,7 @@ class BasicParser(Parser):
     tokens = BasicLexer.tokens
 
     precedence = (
-        ('left', '+', '-','#'),
+        ('left', '+', '-','#','<','>'),
         ('left', '*', '/'),
         ('right', 'UMINUS'),
     )
@@ -38,6 +38,15 @@ class BasicParser(Parser):
     @_('expr "+" expr')
     def expr(self, p):
         return ('add', p.expr0, p.expr1)
+
+    @_('expr "<" expr')
+    def expr(self, p):
+        return ('small', p.expr0, p.expr1)
+
+    @_('expr ">" expr')
+    def expr(self, p):
+        return ('big', p.expr0, p.expr1)
+
     @_('expr "#" expr')
     def expr(self, p):
         return ('ifsame', p.expr0, p.expr1)
