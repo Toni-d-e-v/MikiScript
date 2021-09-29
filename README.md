@@ -2,7 +2,7 @@
 
 Simple programing languange made for fun!
 
-## Sytax
+## Syntax
 
 ```
 > 1 + 1
