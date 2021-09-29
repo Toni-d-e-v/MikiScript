@@ -43,11 +43,9 @@ class BasicExecute:
         elif node[0] == 'ifsame':
             print(self.walkTree(node[1]))
             print(self.walkTree(node[2]))
-
             if self.walkTree(node[1]) == self.walkTree(node[2]):
                 return('true')
                 print('true')
-
             else:
                 return('false')
                 print('false')
