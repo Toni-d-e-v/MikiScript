@@ -17,4 +17,4 @@ Simple programing languange made for fun!
 > a = 1 + 1
 > a // print var
 2
-``
+```
