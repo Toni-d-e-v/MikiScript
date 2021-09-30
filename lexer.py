@@ -1,17 +1,19 @@
 
 from sly import Lexer
 class BasicLexer(Lexer):
-    tokens = { NAME, NUMBER, STRING }
+    tokens = { NAME, NUMBER, STRING, IF,ELSE}
     ignore = '\t '
     literals = {'#','=', '+', '-', '/', 
-                '*', '(', ')', ',', ';','<','>'}
+                '*', '(', ')', ',', ';','<','>','{','}'}
   
   
     # Define tokens as regular expressions
     # (stored as raw strings)
+    IF = r'if'
+    ELSE = r'else'
     NAME = r'[a-zA-Z_][a-zA-Z0-9_]*'
     STRING = r'\".*?\"'
-  
+ 
     # Number token
     @_(r'\d+')
     def NUMBER(self, t):

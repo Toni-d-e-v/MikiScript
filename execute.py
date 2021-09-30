@@ -3,14 +3,16 @@ class BasicExecute:
     
     def __init__(self, tree, env):
         self.env = env
+        self.tree = tree
         result = self.walkTree(tree)
         if result is not None and isinstance(result, int):
             print(result)
         if isinstance(result, str) and result[0] == '"':
             print(result)
 
-    def walkTree(self, node):
 
+
+    def walkTree(self, node):
         if isinstance(node, int):
             return node
         if isinstance(node, str):
@@ -50,7 +52,23 @@ class BasicExecute:
         elif node[0] == 'ifsame':
             is1 = self.walkTree(node[1]) == self.walkTree(node[2])
             return is1
-
+        elif node[0] == 'if':
+            # print(parsed)
+            # print(node[1][1][0])
+            result = self.walkTree(node[1][0])
+            if result:
+                block = self.walkTree(node[1][1][0])
+                return block
+        elif node[0] == 'ifelse':
+            # print(parsed)
+            #print(node[1][2][0])
+            result = self.walkTree(node[1][0])
+            if result:
+                block = self.walkTree(node[1][1][0])
+                return block
+            else:
+                block = self.walkTree(node[1][2][0])
+                return block
         if node[0] == 'var_assign':
             self.env[node[1]] = self.walkTree(node[2])
             return node[1]

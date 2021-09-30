@@ -18,6 +18,13 @@ class BasicParser(Parser):
     @_('')
     def statement(self, p):
         pass
+    @_('program statement')
+    def program(self, p):
+        return p.program + (p.statement, )
+
+    @_('statement')
+    def program(self, p):
+        return (p.statement, )
 
     @_('var_assign')
     def statement(self, p):
@@ -62,6 +69,13 @@ class BasicParser(Parser):
     def expr(self, p):
         return ('div', p.expr0, p.expr1)
 
+    @_('IF expr block')
+    def statement(self, p):
+        #print(p.block)
+        return ('if', (p.expr,p.block,None))
+    @_('IF expr block ELSE block')
+    def statement(self, p):
+        return ('ifelse', (p.expr,p.block0,p.block1))
     @_('"-" expr %prec UMINUS')
     def expr(self, p):
         return p.expr
@@ -73,3 +87,10 @@ class BasicParser(Parser):
     @_('NUMBER')
     def expr(self, p):
         return ('num', p.NUMBER)
+    @_('"{" program "}"')
+    def block(self, p):
+        return p.program
+
+    @_('statement')
+    def block(self, p):
+        return (p.statement, )
